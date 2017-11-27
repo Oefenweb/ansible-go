@@ -1,36 +1,85 @@
+# tasks file for go
 ---
-- name: Download the Go tarball
-  get_url:
-    url: "{{ go_download_location }}"
-    dest: /usr/local/src/{{ go_tarball }}
-    checksum: "{{ go_tarball_checksum }}"
-
-- name: Register the current Go version (if any)
-  command: /usr/local/go/bin/go version
-  ignore_errors: yes
-  register: go_version
+- name: get (current) version
+  command: "{{ go_version_command }}"
+  register: _get_current_version
   changed_when: false
+  failed_when: false
+  tags:
+    - configuration
+    - go
+    - go-get-version
 
-- name: Remove old installation of Go
-  file:
-    path: /usr/local/go
-    state: absent
-  when: go_version|failed or go_version.stdout != go_version_target
+- block:
 
-- name: Extract the Go tarball if Go is not yet installed or not the desired version
-  unarchive:
-    src: /usr/local/src/{{ go_tarball }}
-    dest: /usr/local
-    copy: no
-  when: go_version|failed or go_version.stdout != go_version_target
+  - name: create (download) directory
+    file:
+      path: "{{ go_download_path }}"
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+    tags:
+      - go-download-directory
 
-- name: Add the Go bin directory to the PATH environment variable for all users
-  copy:
-    src: go-bin.sh
-    dest: /etc/profile.d
+  - name: download
+    get_url:
+      url: "{{ go_download_url }}"
+      dest: "{{ go_download_path }}/{{ go_tarball }}"
+      checksum: "{{ go_tarball_checksum }}"
+      owner: root
+      group: root
+      mode: 0644
+    tags:
+      - go-download-file
 
-- name: Set GOPATH for all users
-  copy:
-    src: go-path.sh
-    dest: /etc/profile.d
-  when: set_go_path
+  - name: remove distro versions
+    apt:
+      name: "{{ item }}"
+      state: absent
+      purge: true
+    when: go_remove_distro_version | bool
+    with_items: "{{ go_distro_versions }}"
+    tags:
+      - go-remove
+      - go-remove-distro
+
+  - name: remove current version
+    file:
+      path: "{{ go_install_prefix }}/go"
+      state: absent
+    tags:
+      - go-remove
+      - go-remove-current
+
+  - name: extract
+    unarchive:
+      src: "{{ go_download_path }}/{{ go_tarball }}"
+      dest: "{{ go_install_prefix }}"
+      creates: "{{ go_install_prefix }}/go"
+      copy: false
+    tags:
+      - go-extract
+
+  - name: configure environment (variables)
+    template:
+      src: etc/profile.d/go.sh.j2
+      dest: /etc/profile.d/go.sh.j2
+      owner: root
+      group: root
+      mode: 0644
+    tags:
+      - go-configure-environment
+
+  - name: check (installed) version
+    command: "{{ go_version_command }}"
+    register: _get_installed_version
+    failed_when: "_get_installed_version.stdout | default('') != go_version"
+    changed_when: false
+    tags:
+      - go-check-version
+
+  when: _get_current_version.stdout | default('') != go_version
+  tags:
+    - configuration
+    - go
