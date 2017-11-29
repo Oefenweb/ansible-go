@@ -1,2 +1,12 @@
+# vars file for go
 ---
-go_download_location: "https://storage.googleapis.com/golang/{{ go_tarball }}"
+go_version_command: "{{ go_install_prefix }}/go/bin/go version"
+go_distro_versions:
+  - golang
+  - golang-1.6
+  - golang-1.7
+  - golang-1.8
+  - golang-1.9
+
+go_download_path: /var/lib/ansible/go/downloads
+go_download_url: "https://storage.googleapis.com/golang/{{ go_tarball }}"

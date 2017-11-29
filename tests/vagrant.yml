@@ -1,0 +1,9 @@
+# test file for go
+---
+- hosts: all
+  remote_user: vagrant
+  become: true
+  roles:
+    - ../../
+  vars:
+    go_install_prefix: /opt

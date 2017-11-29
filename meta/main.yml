@@ -1,40 +1,22 @@
+# meta file for go
 ---
 galaxy_info:
-  author: "Joshua Lund"
-  description: "Ansible role that installs Go (https://golang.org/). The latest stable release that has been compiled for x86 64-bit Linux systems is installed by default, and different platforms and versions are supported by modifying the role variables."
+  author: Mischa ter Smitten
+  company: Oefenweb.nl B.V.
+  description: Set up (the latest or a specific version of) Go in Debian-like systems
   license: MIT
-  min_ansible_version: 2.0
+  min_ansible_version: 2.0.0.0
   platforms:
-    - name: EL
-      versions:
-        - all
-    - name: GenericUNIX
-      versions:
-        - all
-    - name: Fedora
-      versions:
-        - all
-    - name: opensuse
-      versions:
-        - all
-    - name: GenericBSD
-      versions:
-        - all
-    - name: FreeBSD
-      versions:
-        - all
     - name: Ubuntu
       versions:
-        - all
-    - name: SLES
-      versions:
-        - all
-    - name: GenericLinux
-      versions:
-        - all
+        - trusty
+        - xenial
     - name: Debian
       versions:
-        - all
-  categories:
+        - jessie
+        - stretch
+  galaxy_tags:
     - development
+    - packaging
+    - system
 dependencies: []

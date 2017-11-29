@@ -1,0 +1,7 @@
+# test file for go
+---
+- hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - ../../
