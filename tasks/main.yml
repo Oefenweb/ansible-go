@@ -64,7 +64,7 @@
   - name: configure environment (variables)
     template:
       src: etc/profile.d/go.sh.j2
-      dest: /etc/profile.d/go.sh.j2
+      dest: /etc/profile.d/go.sh
       owner: root
       group: root
       mode: 0644
