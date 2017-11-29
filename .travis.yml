@@ -55,13 +55,6 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  # Test gosu installation
-  - >
-    which gosu
-    | grep -q 'gosu'
-    && (echo 'Availability test: pass' && exit 0)
-    || (echo 'Availability test: fail' && exit 1)
-
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then ansible-lint tests/test.yml || true; fi
 
 notifications:
