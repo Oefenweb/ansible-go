@@ -10,9 +10,9 @@ None
 
 #### Variables
 
-* `go_version`: [default: `go version go1.9.2 linux/amd64`]: Version string (to check)
-* `go_tarball`: [default: `go1.9.2.linux-amd64.tar.gz`]: Tarball to install
-* `go_tarball_checksum`: [default: `sha256:de874549d9a8d8d8062be05808509c09a88a248e77ec14eb77453530829ac02b`]: Tarball checksum (to check)
+* `go_version`: [default: `go version go1.9.7 linux/amd64`]: Version string (to check)
+* `go_tarball`: [default: `go1.9.7.linux-amd64.tar.gz`]: Tarball to install
+* `go_tarball_checksum`: [default: `sha256:88573008f4f6233b81f81d8ccf92234b4f67238df0f0ab173d75a302a1f3d6ee`]: Tarball checksum (to check)
 
 * `go_install_prefix`: [default: `/usr/local`]: Install prefix
 
