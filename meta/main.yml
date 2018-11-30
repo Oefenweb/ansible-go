@@ -1,6 +1,7 @@
 # meta file for go
 ---
 galaxy_info:
+  role_name: go
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up (the latest or a specific version of) Go in Debian-like systems
@@ -11,6 +12,7 @@ galaxy_info:
       versions:
         - trusty
         - xenial
+        - bionic
     - name: Debian
       versions:
         - jessie

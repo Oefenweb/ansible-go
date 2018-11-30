@@ -35,11 +35,10 @@
 
   - name: remove distro versions
     apt:
-      name: "{{ item }}"
+      name: "{{ go_distro_versions }}"
       state: absent
       purge: true
     when: go_remove_distro_version | bool
-    with_items: "{{ go_distro_versions }}"
     tags:
       - go-remove
       - go-remove-distro

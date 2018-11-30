@@ -7,6 +7,7 @@ go_distro_versions:
   - golang-1.7
   - golang-1.8
   - golang-1.9
+  - golang-1.10
 
 go_download_path: /var/lib/ansible/go/downloads
 go_download_url: "https://storage.googleapis.com/golang/{{ go_tarball }}"

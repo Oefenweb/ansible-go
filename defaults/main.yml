@@ -1,8 +1,12 @@
 # defaults file for go
 ---
-go_version: 'go version go1.10.3 linux/amd64'
-go_tarball: 'go1.10.3.linux-amd64.tar.gz'
-go_tarball_checksum: 'sha256:fa1b0e45d3b647c252f51f5e1204aba049cde4af177ef9f2181f43004f901035'
+go_version: 'go version go1.11.2 linux/amd64'
+go_tarball: 'go1.11.2.linux-amd64.tar.gz'
+go_tarball_checksum: 'sha256:1dfe664fa3d8ad714bbd15a36627992effd150ddabd7523931f077b3926d736d'
+
+# go_version: 'go version go1.10.3 linux/amd64'
+# go_tarball: 'go1.10.3.linux-amd64.tar.gz'
+# go_tarball_checksum: 'sha256:fa1b0e45d3b647c252f51f5e1204aba049cde4af177ef9f2181f43004f901035'
 
 # go_version: 'go version go1.9.7 linux/amd64'
 # go_tarball: 'go1.9.7.linux-amd64.tar.gz'
