@@ -1,4 +1,4 @@
-# tasks file for go
+# tasks file
 ---
 - name: get (current) version
   command: "{{ go_version_command }}"

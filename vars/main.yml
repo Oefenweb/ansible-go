@@ -1,4 +1,4 @@
-# vars file for go
+# vars file
 ---
 go_version_command: "{{ go_install_prefix }}/go/bin/go version"
 go_distro_versions:
