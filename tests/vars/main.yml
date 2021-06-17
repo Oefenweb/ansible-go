@@ -1,0 +1,3 @@
+# vars file
+---
+go_install_prefix: /opt

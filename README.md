@@ -1,6 +1,6 @@
 ## go
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-go.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-go)
+[![CI](https://github.com/Oefenweb/ansible-go/workflows/CI/badge.svg)](https://github.com/Oefenweb/ansible-go/actions?query=workflow%3ACI)
 [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-go-blue.svg)](https://galaxy.ansible.com/Oefenweb/go/)
 
 Set up (the latest or a specific version of) [Go](https://golang.org/) in Debian-like systems.
