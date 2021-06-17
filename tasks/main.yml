@@ -12,71 +12,71 @@
 
 - block:
 
-  - name: create (download) directory
-    file:
-      path: "{{ go_download_path }}"
-      state: directory
-      owner: root
-      group: root
-      mode: 0755
-    tags:
-      - go-download-directory
+    - name: create (download) directory
+      file:
+        path: "{{ go_download_path }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+      tags:
+        - go-download-directory
 
-  - name: download
-    get_url:
-      url: "{{ go_download_url }}"
-      dest: "{{ go_download_path }}/{{ go_tarball }}"
-      checksum: "{{ go_tarball_checksum }}"
-      owner: root
-      group: root
-      mode: 0644
-    tags:
-      - go-download-file
+    - name: download
+      get_url:
+        url: "{{ go_download_url }}"
+        dest: "{{ go_download_path }}/{{ go_tarball }}"
+        checksum: "{{ go_tarball_checksum }}"
+        owner: root
+        group: root
+        mode: 0644
+      tags:
+        - go-download-file
 
-  - name: remove distro versions
-    apt:
-      name: "{{ go_distro_versions }}"
-      state: absent
-      purge: true
-    when: go_remove_distro_version | bool
-    tags:
-      - go-remove
-      - go-remove-distro
+    - name: remove distro versions
+      apt:
+        name: "{{ go_distro_versions }}"
+        state: absent
+        purge: true
+      when: go_remove_distro_version | bool
+      tags:
+        - go-remove
+        - go-remove-distro
 
-  - name: remove current version
-    file:
-      path: "{{ go_install_prefix }}/go"
-      state: absent
-    tags:
-      - go-remove
-      - go-remove-current
+    - name: remove current version
+      file:
+        path: "{{ go_install_prefix }}/go"
+        state: absent
+      tags:
+        - go-remove
+        - go-remove-current
 
-  - name: extract
-    unarchive:
-      src: "{{ go_download_path }}/{{ go_tarball }}"
-      dest: "{{ go_install_prefix }}"
-      creates: "{{ go_install_prefix }}/go"
-      copy: false
-    tags:
-      - go-extract
+    - name: extract
+      unarchive:
+        src: "{{ go_download_path }}/{{ go_tarball }}"
+        dest: "{{ go_install_prefix }}"
+        creates: "{{ go_install_prefix }}/go"
+        copy: false
+      tags:
+        - go-extract
 
-  - name: configure environment (variables)
-    template:
-      src: etc/profile.d/go.sh.j2
-      dest: /etc/profile.d/go.sh
-      owner: root
-      group: root
-      mode: 0644
-    tags:
-      - go-configure-environment
+    - name: configure environment (variables)
+      template:
+        src: etc/profile.d/go.sh.j2
+        dest: /etc/profile.d/go.sh
+        owner: root
+        group: root
+        mode: 0644
+      tags:
+        - go-configure-environment
 
-  - name: check (installed) version
-    command: "{{ go_version_command }}"
-    register: _get_installed_version
-    failed_when: "_get_installed_version.stdout | default('') != go_version"
-    changed_when: false
-    tags:
-      - go-check-version
+    - name: check (installed) version
+      command: "{{ go_version_command }}"
+      register: _get_installed_version
+      failed_when: "_get_installed_version.stdout | default('') != go_version"
+      changed_when: false
+      tags:
+        - go-check-version
 
   when: _get_current_version.stdout | default('') != go_version
   tags:
