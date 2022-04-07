@@ -1,7 +1,8 @@
 # tasks file
 ---
 - name: get (current) version
-  command: "{{ go_version_command }}"
+  command: >
+    {{ go_version_command }}
   register: _get_current_version
   changed_when: false
   failed_when: false
@@ -71,7 +72,8 @@
         - go-configure-environment
 
     - name: check (installed) version
-      command: "{{ go_version_command }}"
+      command: >
+        {{ go_version_command }}
       register: _get_installed_version
       failed_when: "_get_installed_version.stdout | default('') != go_version"
       changed_when: false
