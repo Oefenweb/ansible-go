@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: get (current) version
-  command: >
+  ansible.builtin.command: >
     {{ go_version_command }}
   register: _get_current_version
   changed_when: false
@@ -11,10 +11,15 @@
     - go
     - go-get-version
 
-- block:
+- name: install
+  when: _get_current_version.stdout | default('') != go_version
+  tags:
+    - configuration
+    - go
+  block:
 
     - name: create (download) directory
-      file:
+      ansible.builtin.file:
         path: "{{ go_download_path }}"
         state: directory
         owner: root
@@ -24,7 +29,7 @@
         - go-download-directory
 
     - name: download
-      get_url:
+      ansible.builtin.get_url:
         url: "{{ go_download_url }}"
         dest: "{{ go_download_path }}/{{ go_tarball }}"
         checksum: "{{ go_tarball_checksum }}"
@@ -35,7 +40,7 @@
         - go-download-file
 
     - name: remove distro versions
-      apt:
+      ansible.builtin.apt:
         name: "{{ go_distro_versions }}"
         state: absent
         purge: true
@@ -45,7 +50,7 @@
         - go-remove-distro
 
     - name: remove current version
-      file:
+      ansible.builtin.file:
         path: "{{ go_install_prefix }}/go"
         state: absent
       tags:
@@ -53,7 +58,7 @@
         - go-remove-current
 
     - name: extract
-      unarchive:
+      ansible.builtin.unarchive:
         src: "{{ go_download_path }}/{{ go_tarball }}"
         dest: "{{ go_install_prefix }}"
         creates: "{{ go_install_prefix }}/go"
@@ -62,7 +67,7 @@
         - go-extract
 
     - name: configure environment (variables)
-      template:
+      ansible.builtin.template:
         src: etc/profile.d/go.sh.j2
         dest: /etc/profile.d/go.sh
         owner: root
@@ -72,15 +77,10 @@
         - go-configure-environment
 
     - name: check (installed) version
-      command: >
+      ansible.builtin.command: >
         {{ go_version_command }}
       register: _get_installed_version
       failed_when: "_get_installed_version.stdout | default('') != go_version"
       changed_when: false
       tags:
         - go-check-version
-
-  when: _get_current_version.stdout | default('') != go_version
-  tags:
-    - configuration
-    - go
