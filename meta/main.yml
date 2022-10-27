@@ -1,9 +1,8 @@
 # meta file
 ---
 galaxy_info:
-  namespace: oefenweb
+  author: oefenweb
   role_name: go
-  author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up (the latest or a specific version of) Go in Debian-like systems
   license: MIT
