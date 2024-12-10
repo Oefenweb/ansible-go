@@ -24,7 +24,7 @@
         state: directory
         owner: root
         group: root
-        mode: 0755
+        mode: '0755'
       tags:
         - go-download-directory
 
@@ -35,7 +35,7 @@
         checksum: "{{ go_tarball_checksum }}"
         owner: root
         group: root
-        mode: 0644
+        mode: '0644'
       tags:
         - go-download-file
 
@@ -72,7 +72,7 @@
         dest: /etc/profile.d/go.sh
         owner: root
         group: root
-        mode: 0644
+        mode: '0644'
       tags:
         - go-configure-environment
 
