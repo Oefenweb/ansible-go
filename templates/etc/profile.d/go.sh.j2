@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 export GOPATH="{{ go_install_prefix }}/go";
 export PATH="${PATH}:${GOPATH}/bin";

@@ -17,7 +17,7 @@ None
 
 * `go_install_prefix`: [default: `/usr/local`]: Install prefix
 
-* `go_remove_distro_version`: [default: `true`]: Whether or not to remove distribution versions
+* `go_remove_distro_version`: [default: `true`]: Whether to remove distribution versions
 
 ## Dependencies
 
